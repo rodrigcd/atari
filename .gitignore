@@ -4,3 +4,4 @@
 *.swp
 *.out
 *.ipynb_checkpoints
+*output*
