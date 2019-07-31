@@ -6,7 +6,7 @@ from game_models.ge_game_model import GETrainer, GESolver
 from gym_wrappers import MainGymWrapper
 
 
-class Atari_env(object):
+class AtariEnv(object):
 
     def __init__(self, **kwargs):
 
@@ -29,24 +29,19 @@ class Atari_env(object):
         self.env = MainGymWrapper.wrap(gym.make(self.env_name))
 
     def _initialize_agent(self):
-        self.game_model = self._game_model(self.agent_model + "_" + self.game_mode,
-                                           self.game_name,
+        self.game_model = self._game_model(self.game_name,
                                            self.env.action_space.n,
                                            self.input_shape)
 
     def run_rl_agent(self):
         self._initialize_agent()
 
-        if isinstance(self.game_model, GETrainer):
-            self.game_model.genetic_evolution(self.env)
-
         run = 0
         total_step = 0
         while True:
             if self.total_run_limit is not None and run >= self.total_run_limit:
                 print("Reached total run limit of: " + str(self.total_run_limit))
-                exit(0)
-
+                break
             run += 1
             current_state = self.env.reset()
             step = 0
@@ -75,7 +70,8 @@ class Atari_env(object):
                     self.game_model.save_run(score, step, run)
                     break
 
-    def _game_model(self, game_mode,game_name, action_space, input_shape):
+    def _game_model(self, game_name, action_space, input_shape):
+        game_mode = self.agent_model + "_" + self.game_mode
         if game_mode == "ddqn_training":
             return DDQNTrainer(game_name, input_shape, action_space)
         elif game_mode == "ddqn_testing":
