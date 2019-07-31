@@ -184,12 +184,13 @@ class ChannelsFirstImageShape(gym.ObservationWrapper):
 class MainGymWrapper():
 
     @staticmethod
-    def wrap(env):
+    def wrap(env, channel_first=True):
         env = NoopResetEnv(env, noop_max=30)
         if 'FIRE' in env.unwrapped.get_action_meanings():
             env = FireResetEnv(env)
         env = ProcessFrame84(env)
-        env = ChannelsFirstImageShape(env)
+        if channel_first:
+            env = ChannelsFirstImageShape(env)
         env = FrameStack(env, 4)
         # env = ClippedRewardsWrapper(env)
         return env
