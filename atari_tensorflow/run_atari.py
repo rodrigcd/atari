@@ -6,7 +6,7 @@ from atari_tensorflow.agents.base_agent import BaseAgent
 def main():
     rl_agent = BaseAgent(**agent_options_kwargs)
     atari_env = AtariEnv(**env_options_kwargs)
-    atari_env.run_rl_agent()
+    atari_env.run_rl_agent(rl_agent)
 
 
 if __name__ == "__main__":

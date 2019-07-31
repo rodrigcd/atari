@@ -1,8 +1,7 @@
 import gym
-import argparse
 import numpy as np
-from game_models.ddqn_game_model import DDQNTrainer, DDQNSolver
-from game_models.ge_game_model import GETrainer, GESolver
+#from game_models.ddqn_game_model import DDQNTrainer, DDQNSolver
+#from game_models.ge_game_model import GETrainer, GESolver
 from gym_wrappers import MainGymWrapper
 
 
@@ -33,8 +32,9 @@ class AtariEnv(object):
                                            self.env.action_space.n,
                                            self.input_shape)
 
-    def run_rl_agent(self):
-        self._initialize_agent()
+    def run_rl_agent(self, game_model):
+        #self._initialize_agent()
+        self.game_model = game_model
 
         run = 0
         total_step = 0

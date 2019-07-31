@@ -18,10 +18,13 @@ class BaseAgent(object):
         self.exploration_decay = kwargs["exploration_decay"]
 
     def move(self, state):
-        pass
+        return np.random.randint(low=0, high=4, size=1)
 
-    def remember(self, **kwargs):
+    def remember(self, current_state, action, reward, next_state, terminal):
         pass
 
     def step_update(self, total_steps):
+        pass
+
+    def save_run(self, score, step, run):
         pass
